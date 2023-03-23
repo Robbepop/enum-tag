@@ -15,9 +15,9 @@ categories.workspace = true
 proc-macro = true
 
 [dependencies]
-syn = { version = "1", features = [] }
-proc-macro2 = "1"
-quote = "1"
+syn = "2.0.0"
+proc-macro2 = "1.0.0"
+quote = "1.0.0"
 heck = "0.4.0"
 
 [dev-dependencies]
