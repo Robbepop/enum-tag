@@ -1,0 +1,24 @@
+[package]
+name = "enum-tag-macro"
+version = "0.1.0"
+documentation = "https://docs.rs/enum-tag-macro/"
+description = "Proc. macro implementation for the `enum-tag` crate."
+authors.workspace = true
+repository.workspace = true
+edition.workspace = true
+readme.workspace = true
+license.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "1", features = ["full", "extra-traits"] }
+proc-macro2 = "1"
+quote = "1"
+heck = "0.4.0"
+
+[dev-dependencies]
+enum-tag = { path = ".." }
