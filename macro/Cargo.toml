@@ -15,7 +15,7 @@ categories.workspace = true
 proc-macro = true
 
 [dependencies]
-syn = { version = "1", features = ["full", "extra-traits"] }
+syn = { version = "1", features = [] }
 proc-macro2 = "1"
 quote = "1"
 heck = "0.4.0"
