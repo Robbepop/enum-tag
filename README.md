@@ -1,10 +1,11 @@
-# `#derive(EnumTag)` Proc. Macro
+# `#derive(EnumTag)`
 
 This crate provides a proc. macro to derive the `EnumTag` trait for the given Rust `enum`.
 The `#derive(EnumTag)` proc. macro only works on Rust `enum` types and generates both
-    - a C-like `enum` type with the same variants as the input Rust `enum`
-      but without all the associated data.
-    - a derived implementation of the `EnumTag` trait for the Rust `enum`
+
+- a C-like `enum` type with the same variants as the input Rust `enum`
+  but without all the associated data.
+- a derived implementation of the `EnumTag` trait for the Rust `enum`
 
 The derived `EnumTag` trait makes it possible to create instances of the generated
 C-like `enum` type as well as link to its definition via `<RustEnum as EnumTag>::Tag`.
