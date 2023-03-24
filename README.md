@@ -50,12 +50,12 @@ enum Foo {
 /// This is how we can access the generated C-like enum type and name it.
 type FooTag = <Foo as EnumTag>::Tag;
 
-assert_eq!(Foo::A.tag(), FooTag::A);
-assert_eq!(Foo::B.tag(), FooTag::B);
-assert_eq!(Foo::C(1).tag(), FooTag::C);
-assert_eq!(Foo::D(2, 3).tag(), FooTag::D);
-assert_eq!(Foo::E { a: 4 }.tag(), FooTag::E);
-assert_eq!(Foo::F { a: 5, b: 6 }.tag(), FooTag::F);
+assert_eq!(FooTag::A, Foo::A.tag());
+assert_eq!(FooTag::B, Foo::B.tag());
+assert_eq!(FooTag::C, Foo::C(1).tag());
+assert_eq!(FooTag::D, Foo::D(2, 3).tag());
+assert_eq!(FooTag::E, Foo::E { a: 4 }.tag());
+assert_eq!(FooTag::F, Foo::F { a: 5, b: 6 }.tag());
 
 assert_eq!(FooTag::B as u8, 42);
 ```
