@@ -59,7 +59,16 @@ The above `#[derive(EnumTag)]` generates the following Rust code:
 
 ```rust
 const _: () = {
-    #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(
+        ::core::fmt::Debug,
+        ::core::clone::Clone,
+        ::core::marker::Copy,
+        ::core::cmp::PartialEq,
+        ::core::cmp::Eq,
+        ::core::cmp::PartialOrd,
+        ::core::cmp::Ord,
+        ::core::hash::Hash,
+    )]
     pub enum FooTag {
         A = 42,
         B,
