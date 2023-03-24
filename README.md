@@ -9,7 +9,7 @@
 [5]: https://img.shields.io/crates/v/enum-tag.svg
 [6]: https://crates.io/crates/enum-tag
 
-# `#derive(EnumTag)`
+# `#[derive(EnumTag)]`
 
 This crate provides a proc. macro to derive the `EnumTag` trait for the given Rust `enum`.
 The `#derive(EnumTag)` proc. macro only works on Rust `enum` types and generates both
