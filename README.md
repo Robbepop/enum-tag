@@ -37,22 +37,27 @@ In this example the opcodes are the instruction `enum` tag.
 use ::enum_tag::EnumTag;
 
 #[derive(EnumTag)]
+#[repr(u8)] // Rust needs this for `B = 42`
 enum Foo {
-    A = 42,
-    B(i32),
-    C(i32, i64),
-    D { a: i32 },
-    E { a: i32, b: i64 },
+    A,
+    B = 42,
+    C(i32),
+    D(i32, i64),
+    E { a: i32 },
+    F { a: i32, b: i64 },
 }
 
 /// This is how we can access the generated C-like enum type and name it.
 type FooTag = <Foo as EnumTag>::Tag;
 
 assert_eq!(Foo::A.tag(), FooTag::A);
-assert_eq!(Foo::B(1).tag(), FooTag::B);
-assert_eq!(Foo::C(2, 3).tag(), FooTag::C);
-assert_eq!(Foo::D { a: 4 }.tag(), FooTag::D);
-assert_eq!(Foo::E { a: 5, b: 6 }.tag(), FooTag::E);
+assert_eq!(Foo::B.tag(), FooTag::B);
+assert_eq!(Foo::C(1).tag(), FooTag::C);
+assert_eq!(Foo::D(2, 3).tag(), FooTag::D);
+assert_eq!(Foo::E { a: 4 }.tag(), FooTag::E);
+assert_eq!(Foo::F { a: 5, b: 6 }.tag(), FooTag::F);
+
+assert_eq!(FooTag::B as u8, 42);
 ```
 
 The above `#[derive(EnumTag)]` generates the following Rust code:
@@ -70,11 +75,12 @@ const _: () = {
         ::core::hash::Hash,
     )]
     pub enum FooTag {
-        A = 42,
-        B,
+        A,
+        B = 42,
         C,
         D,
         E,
+        F,
     }
 
     impl ::enum_tag::EnumTag for Foo {
@@ -87,6 +93,7 @@ const _: () = {
                 Self::C { .. } => Self::Tag::C,
                 Self::D { .. } => Self::Tag::D,
                 Self::E { .. } => Self::Tag::E,
+                Self::F { .. } => Self::Tag::F,
             }
         }
     }
