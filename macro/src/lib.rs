@@ -20,22 +20,27 @@ mod derive;
 /// use ::enum_tag::EnumTag;
 ///
 /// #[derive(EnumTag)]
+/// #[repr(u8)] // Rust needs this for `B = 42`
 /// enum Foo {
 ///     A,
-///     B(i32),
-///     C(i32, i64),
-///     D { a: i32 },
-///     E { a: i32, b: i64 },
+///     B = 42,
+///     C(i32),
+///     D(i32, i64),
+///     E { a: i32 },
+///     F { a: i32, b: i64 },
 /// }
 ///
 /// /// This is how we can access the generated C-like enum type and name it.
 /// type FooTag = <Foo as EnumTag>::Tag;
 ///
-/// assert_eq!(Foo::A.tag(), FooTag::A);
-/// assert_eq!(Foo::B(1).tag(), FooTag::B);
-/// assert_eq!(Foo::C(2, 3).tag(), FooTag::C);
-/// assert_eq!(Foo::D { a: 4 }.tag(), FooTag::D);
-/// assert_eq!(Foo::E { a: 5, b: 6 }.tag(), FooTag::E);
+/// assert_eq!(FooTag::A, Foo::A.tag());
+/// assert_eq!(FooTag::B, Foo::B.tag());
+/// assert_eq!(FooTag::C, Foo::C(1).tag());
+/// assert_eq!(FooTag::D, Foo::D(2, 3).tag());
+/// assert_eq!(FooTag::E, Foo::E { a: 4 }.tag());
+/// assert_eq!(FooTag::F, Foo::F { a: 5, b: 6 }.tag());
+///
+/// assert_eq!(FooTag::B as u8, 42);
 /// ```
 #[proc_macro_derive(EnumTag)]
 pub fn enum_tag(input: TokenStream) -> TokenStream {
