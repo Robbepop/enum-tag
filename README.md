@@ -27,7 +27,7 @@ use ::enum_tag::EnumTag;
 
 #[derive(EnumTag)]
 enum Foo {
-    A,
+    A = 42,
     B(i32),
     C(i32, i64),
     D { a: i32 },
@@ -42,4 +42,33 @@ assert_eq!(Foo::B(1).tag(), FooTag::B);
 assert_eq!(Foo::C(2, 3).tag(), FooTag::C);
 assert_eq!(Foo::D { a: 4 }.tag(), FooTag::D);
 assert_eq!(Foo::E { a: 5, b: 6 }.tag(), FooTag::E);
+```
+
+The above `#[derive(EnumTag)]` generates the following Rust code:
+
+```rust
+const _: () = {
+    #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub enum FooTag {
+        A = 42,
+        B,
+        C,
+        D,
+        E,
+    }
+
+    impl ::enum_tag::EnumTag for Foo {
+        type Tag = FooTag;
+
+        fn tag(&self) -> Self::Tag {
+            match self {
+                Self::A { .. } => Self::Tag::A,
+                Self::B { .. } => Self::Tag::B,
+                Self::C { .. } => Self::Tag::C,
+                Self::D { .. } => Self::Tag::D,
+                Self::E { .. } => Self::Tag::E,
+            }
+        }
+    }
+};
 ```
