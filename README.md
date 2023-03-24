@@ -1,3 +1,14 @@
+| Continuous Integration |  Documentation   |      Crates.io       |
+|:----------------------:|:----------------:|:--------------------:|
+| [![ci][1]][2]          | [![docs][3]][4] | [![crates][5]][6]  |
+
+[1]: https://github.com/Robbepop/enum-tag/actions/workflows/rust.yml/badge.svg
+[2]: https://github.com/Robbepop/enum-tag/actions/workflows/rust.yml
+[3]: https://docs.rs/enum-tag/badge.svg
+[4]: https://docs.rs/enum-tag
+[5]: https://img.shields.io/crates/v/enum-tag.svg
+[6]: https://crates.io/crates/enum-tag
+
 # `#derive(EnumTag)`
 
 This crate provides a proc. macro to derive the `EnumTag` trait for the given Rust `enum`.
