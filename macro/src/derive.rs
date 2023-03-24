@@ -37,7 +37,16 @@ fn enum_tag_impl(input: DeriveInput) -> Result<TokenStream2> {
     let variant_idents = data.variants.iter().map(|variant| &variant.ident);
     Ok(quote! {
         const _: () = {
-            #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+            #[derive(
+                ::core::fmt::Debug,
+                ::core::clone::Clone,
+                ::core::marker::Copy,
+                ::core::cmp::PartialEq,
+                ::core::cmp::Eq,
+                ::core::cmp::PartialOrd,
+                ::core::cmp::Ord,
+                ::core::hash::Hash,
+            )]
             pub enum #tag_ident {
                 #( #variants ),*
             }
