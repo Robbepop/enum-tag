@@ -1,4 +1,15 @@
-# `#derive(EnumTag)`
+| Continuous Integration |  Documentation   |      Crates.io       |
+|:----------------------:|:----------------:|:--------------------:|
+| [![ci][1]][2]          | [![docs][3]][4] | [![crates][5]][6]  |
+
+[1]: https://github.com/Robbepop/enum-tag/actions/workflows/rust.yml/badge.svg
+[2]: https://github.com/Robbepop/enum-tag/actions/workflows/rust.yml
+[3]: https://docs.rs/enum-tag/badge.svg
+[4]: https://docs.rs/enum-tag
+[5]: https://img.shields.io/crates/v/enum-tag.svg
+[6]: https://crates.io/crates/enum-tag
+
+# `#[derive(EnumTag)]`
 
 This crate provides a proc. macro to derive the `EnumTag` trait for the given Rust `enum`.
 The `#derive(EnumTag)` proc. macro only works on Rust `enum` types and generates both
@@ -27,7 +38,7 @@ use ::enum_tag::EnumTag;
 
 #[derive(EnumTag)]
 enum Foo {
-    A,
+    A = 42,
     B(i32),
     C(i32, i64),
     D { a: i32 },
@@ -42,4 +53,42 @@ assert_eq!(Foo::B(1).tag(), FooTag::B);
 assert_eq!(Foo::C(2, 3).tag(), FooTag::C);
 assert_eq!(Foo::D { a: 4 }.tag(), FooTag::D);
 assert_eq!(Foo::E { a: 5, b: 6 }.tag(), FooTag::E);
+```
+
+The above `#[derive(EnumTag)]` generates the following Rust code:
+
+```rust
+const _: () = {
+    #[derive(
+        ::core::fmt::Debug,
+        ::core::clone::Clone,
+        ::core::marker::Copy,
+        ::core::cmp::PartialEq,
+        ::core::cmp::Eq,
+        ::core::cmp::PartialOrd,
+        ::core::cmp::Ord,
+        ::core::hash::Hash,
+    )]
+    pub enum FooTag {
+        A = 42,
+        B,
+        C,
+        D,
+        E,
+    }
+
+    impl ::enum_tag::EnumTag for Foo {
+        type Tag = FooTag;
+
+        fn tag(&self) -> Self::Tag {
+            match self {
+                Self::A { .. } => Self::Tag::A,
+                Self::B { .. } => Self::Tag::B,
+                Self::C { .. } => Self::Tag::C,
+                Self::D { .. } => Self::Tag::D,
+                Self::E { .. } => Self::Tag::E,
+            }
+        }
+    }
+};
 ```
