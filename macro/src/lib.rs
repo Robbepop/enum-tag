@@ -42,9 +42,9 @@ mod derive;
 ///
 /// assert_eq!(FooTag::B as u8, 42);
 /// ```
-/// 
+///
 /// The above `#[derive(EnumTag)]` proc. macro will expand to roughly the following Rust code:
-/// 
+///
 /// ```
 /// # #[repr(u8)] // Rust needs this for `B = 42`
 /// # enum Foo {
@@ -75,10 +75,10 @@ mod derive;
 ///         E,
 ///         F,
 ///     }
-/// 
+///
 ///     impl ::enum_tag::EnumTag for Foo {
 ///         type Tag = FooTag;
-/// 
+///
 ///         fn tag(&self) -> <Self as ::enum_tag::EnumTag>::Tag {
 ///             match self {
 ///                 Self::A { .. } => <Self as ::enum_tag::EnumTag>::Tag::A,
