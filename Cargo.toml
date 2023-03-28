@@ -1,6 +1,6 @@
 [package]
 name = "enum-tag"
-version = "0.2.0"
+version = "0.3.0"
 documentation = "https://docs.rs/enum-tag/"
 description = "Proc. macro for generating enum discriminant types."
 authors.workspace = true
@@ -21,7 +21,7 @@ keywords = ["enum", "c-like", "tag", "discriminant", "tagged"]
 categories = ["data-structures", "no-std"]
 
 [dependencies]
-enum-tag-macro = { version = "0.2.0", path = "macro" }
+enum-tag-macro = { version = "0.3.0", path = "macro" }
 
 [workspace]
 members = ["macro"]

@@ -1,6 +1,6 @@
 [package]
 name = "enum-tag-macro"
-version = "0.2.0"
+version = "0.3.0"
 documentation = "https://docs.rs/enum-tag-macro/"
 description = "Proc. macro implementation for the `enum-tag` crate."
 authors.workspace = true
