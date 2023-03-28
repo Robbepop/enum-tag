@@ -54,10 +54,10 @@ fn enum_tag_impl(input: DeriveInput) -> Result<TokenStream2> {
             impl #impl_generics ::enum_tag::EnumTag for #ident #type_generics #where_clause {
                 type Tag = #tag_ident;
 
-                fn tag(&self) -> Self::Tag {
+                fn tag(&self) -> <Self as ::enum_tag::EnumTag>::Tag {
                     match self {
                         #(
-                            Self::#variant_idents { .. } => Self::Tag::#variant_idents,
+                            Self::#variant_idents { .. } => <Self as ::enum_tag::EnumTag>::Tag::#variant_idents,
                         )*
                     }
                 }
