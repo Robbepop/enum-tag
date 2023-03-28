@@ -17,7 +17,7 @@ mod derive;
 /// # Example
 ///
 /// ```
-/// use ::enum_tag::EnumTag;
+/// use enum_tag::EnumTag;
 ///
 /// #[derive(EnumTag)]
 /// #[repr(u8)] // Rust needs this for `B = 42`
@@ -41,6 +41,56 @@ mod derive;
 /// assert_eq!(FooTag::F, Foo::F { a: 5, b: 6 }.tag());
 ///
 /// assert_eq!(FooTag::B as u8, 42);
+/// ```
+///
+/// The above `#[derive(EnumTag)]` proc. macro will expand to roughly the following Rust code:
+///
+/// ```
+/// # #[repr(u8)] // Rust needs this for `B = 42`
+/// # enum Foo {
+/// #     A,
+/// #     B = 42,
+/// #     C(i32),
+/// #     D(i32, i64),
+/// #     E { a: i32 },
+/// #     F { a: i32, b: i64 },
+/// # }
+/// #
+/// const _: () = {
+///     #[derive(
+///         ::core::fmt::Debug,
+///         ::core::clone::Clone,
+///         ::core::marker::Copy,
+///         ::core::cmp::PartialEq,
+///         ::core::cmp::Eq,
+///         ::core::cmp::PartialOrd,
+///         ::core::cmp::Ord,
+///         ::core::hash::Hash,
+///     )]
+///     pub enum FooTag {
+///         A,
+///         B = 42,
+///         C,
+///         D,
+///         E,
+///         F,
+///     }
+///
+///     impl ::enum_tag::EnumTag for Foo {
+///         type Tag = FooTag;
+///
+///         fn tag(&self) -> <Self as ::enum_tag::EnumTag>::Tag {
+///             match self {
+///                 Self::A { .. } => <Self as ::enum_tag::EnumTag>::Tag::A,
+///                 Self::B { .. } => <Self as ::enum_tag::EnumTag>::Tag::B,
+///                 Self::C { .. } => <Self as ::enum_tag::EnumTag>::Tag::C,
+///                 Self::D { .. } => <Self as ::enum_tag::EnumTag>::Tag::D,
+///                 Self::E { .. } => <Self as ::enum_tag::EnumTag>::Tag::E,
+///                 Self::F { .. } => <Self as ::enum_tag::EnumTag>::Tag::F,
+///             }
+///         }
+///     }
+/// };
 /// ```
 #[proc_macro_derive(EnumTag)]
 pub fn enum_tag(input: TokenStream) -> TokenStream {
