@@ -86,14 +86,14 @@ const _: () = {
     impl ::enum_tag::EnumTag for Foo {
         type Tag = FooTag;
 
-        fn tag(&self) -> Self::Tag {
+        fn tag(&self) -> <Self as ::enum_tag::EnumTag>::Tag {
             match self {
-                Self::A { .. } => Self::Tag::A,
-                Self::B { .. } => Self::Tag::B,
-                Self::C { .. } => Self::Tag::C,
-                Self::D { .. } => Self::Tag::D,
-                Self::E { .. } => Self::Tag::E,
-                Self::F { .. } => Self::Tag::F,
+                Self::A { .. } => <Self as ::enum_tag::EnumTag>::Tag::A,
+                Self::B { .. } => <Self as ::enum_tag::EnumTag>::Tag::B,
+                Self::C { .. } => <Self as ::enum_tag::EnumTag>::Tag::C,
+                Self::D { .. } => <Self as ::enum_tag::EnumTag>::Tag::D,
+                Self::E { .. } => <Self as ::enum_tag::EnumTag>::Tag::E,
+                Self::F { .. } => <Self as ::enum_tag::EnumTag>::Tag::F,
             }
         }
     }
