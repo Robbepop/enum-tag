@@ -8,6 +8,12 @@ Additionally we have an `Internal` section for changes that are of interest to d
 
 Dates in this file are formattes as `YYYY-MM-DD`.
 
+## [`0.3.0`] - 2023-03-25
+
+### Fixed
+
+- Fixed a minor proc. macro hygiene issue with the generated `EnumTag` trait implementation.
+
 ## [`0.2.0`] - 2023-03-24
 
 ### Fixed
